@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product, TopProduct } from './models';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +99,6 @@ export class Api {
       {
         name: 'Vanilla',
         quantity: 199
-        quantity: 199
       },
       {
         name: 'Watermelon',
@@ -127,30 +126,34 @@ export class Api {
   }
 
   getProducts(): Observable<Product[]> {
-    return of(JSON.parse(JSON.stringify(this.#data)));
+    return of(JSON.parse(JSON.stringify(this.#data))).pipe(delay(500));
   }
 
-  updateProduct(product: Product) {
+  updateProduct(product: Product): Observable<boolean> {
     if (!this.#dataMap[product.id]) {
-      return;
+      return of(false).pipe(delay(500));
     }
 
     this.#dataMap[product.id] = {...product};
+
+    return of(true).pipe(delay(500))
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: number): Observable<boolean> {
     if (!this.#dataMap[id]) {
-      return;
+      return of(false).pipe(delay(500));
     }
 
     delete this.#dataMap[id];
     const index = this.#data.findIndex(x => x.id === id);
     this.#data.splice(index, 1);
+
+    return of(false).pipe(delay(500));
   }
 
-  createProduct(newProduct: Product) {
+  createProduct(newProduct: Product): Observable<boolean> {
     if (this.#flavors.includes(newProduct.name)) {
-      return;
+      return of(false).pipe(delay(500));
     }
 
     const product: Product = {
@@ -163,10 +166,12 @@ export class Api {
     this.#flavors.push(product.name);
     this.#dataMap[product.id] = product;
     this.#data.push(product);
+
+    return of(false).pipe(delay(500));
   }
 
-  getTopProductForMonth(month: number): Observable<Product[]> {
-    return of(this.#topProductsByMonth[month]) as Observable<Product[]>;
+  getTopProductForMonth(month: number): Observable<TopProduct[]> {
+    return of(this.#topProductsByMonth[month]).pipe(delay(500));
   }
 
   #getRandomPrice(): number {
