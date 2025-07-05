@@ -24,7 +24,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    AsyncPipe,
     RouterLink,
     RouterLinkActive,
     RouterOutlet,

@@ -1,1 +1,7 @@
+@if (loading()) {
+  <app-spinner [loading]="loading()"></app-spinner>
+} @else {
+  <app-products-table [data]="data()"></app-products-table>
+}
+
 

@@ -1,4 +1,4 @@
-﻿import { signalStore, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
+﻿import { signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { Product } from '../models';
 import { Api } from '../api';
 import { computed, inject } from '@angular/core';
@@ -103,6 +103,12 @@ export const InventoryManagerStore = signalStore(
         })
       )
     )
-  }))
+  })),
+
+  withHooks({
+    onInit(store) {
+      store.getProduct();
+    },
+  }),
 );
 

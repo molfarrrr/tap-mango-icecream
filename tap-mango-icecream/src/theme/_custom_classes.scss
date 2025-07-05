@@ -590,7 +590,6 @@
   height: 100vh;
 }
 
-
 .row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
@@ -737,57 +736,57 @@
   }
 
   .flex-md-row {
-    flex-direction: row !important;
+    flex-direction: row;
   }
   .flex-md-column {
-    flex-direction: column !important;
+    flex-direction: column;
   }
 }
 
 .fw-light {
-  font-weight: 300 !important;
+  font-weight: 300 ;
 }
 
 .fw-normal {
-  font-weight: 400 !important;
+  font-weight: 400;
 }
 
 .fw-medium {
-  font-weight: 500 !important;
+  font-weight: 500;
 }
 
 .fw-semibold {
-  font-weight: 600 !important;
+  font-weight: 600;
 }
 
 .fw-bold {
-  font-weight: 700 !important;
+  font-weight: 700;
 }
 
 .fw-bolder {
-  font-weight: bolder !important;
+  font-weight: bolder;
 }
 
 .gap-0 {
-  gap: 0 !important;
+  gap: 0;
 }
 
 .gap-1 {
-  gap: 0.25rem !important;
+  gap: 0.25rem;
 }
 
 .gap-2 {
-  gap: 0.5rem !important;
+  gap: 0.5rem;
 }
 
 .gap-3 {
-  gap: 1rem !important;
+  gap: 1rem;
 }
 
 .gap-4 {
-  gap: 1.5rem !important;
+  gap: 1.5rem;
 }
 
 .gap-5 {
-  gap: 3rem !important;
+  gap: 3rem;
 }

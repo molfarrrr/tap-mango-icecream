@@ -30,6 +30,7 @@ mat-sidenav-content {
   overflow-y: auto;
   padding: 16px;
   box-sizing: border-box;
+  height: 100%;
 
   @media (pointer: fine) {
     &::-webkit-scrollbar {
