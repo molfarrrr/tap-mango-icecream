@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Route, Router, RouterLink, RouterLinkActive, RouterOutlet, Routes } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, shareReplay } from 'rxjs';
@@ -33,7 +33,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatMenuItem
   ],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+  styleUrl: './layout.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent{
   readonly #breakpointObserver = inject(BreakpointObserver);

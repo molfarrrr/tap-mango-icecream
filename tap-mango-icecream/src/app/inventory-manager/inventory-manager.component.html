@@ -1,7 +1,13 @@
 @if (loading()) {
   <app-spinner [loading]="loading()"></app-spinner>
 } @else {
-  <app-products-table [data]="data()"></app-products-table>
+  <mat-toolbar color="primary" class="d-flex align-items-center justify-content-between w-100">
+    <button mat-button mat-stroked-button  class="mat-elevation-z2">
+      <mat-icon>add</mat-icon>
+      Add Product
+    </button>
+  </mat-toolbar>
+  <app-product-table-manager [productFilter]="productFilter"></app-product-table-manager>
 }
 
 

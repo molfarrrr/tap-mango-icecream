@@ -15,3 +15,8 @@ export interface TopProduct {
   quantity: number;
 }
 
+export enum ProductFilter {
+  all = 1,
+  top,
+}
+
