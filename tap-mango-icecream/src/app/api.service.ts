@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Product, TopProduct } from './models';
-import { delay, Observable, of } from 'rxjs';
+import { catchError, debounceTime, delay, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Api {
+export class ApiService {
   #data: Product[] = [];
   #dataMap: Record<number, Product> = {};
 
@@ -18,7 +20,9 @@ export class Api {
     'Almond', 'S’mores', 'Cinnamon', 'Honeycomb', 'Bubblegum', 'Watermelon', 'Kiwi',
     'Toffee', 'Cranberry', 'Yogurt', 'Macadamia', 'Pineapple', 'Espresso', 'Plum',
     'Marshmallow', 'Fig'
-  ]
+  ];
+
+  #largestID: number = this.#flavors.length;
 
   #topProductsByMonth: Record<string, TopProduct[]> = {
     'April': [
@@ -155,9 +159,10 @@ export class Api {
     if (this.#flavors.includes(newProduct.name)) {
       return of(false).pipe(delay(500));
     }
+    this.#largestID++;
 
     const product: Product = {
-      id: this.#flavors.length,
+      id: this.#largestID,
       name: newProduct.name,
       price: newProduct.price,
       quantity: newProduct.quantity,
@@ -174,11 +179,31 @@ export class Api {
     return of(this.#topProductsByMonth[month]).pipe(delay(500));
   }
 
+  validateFlavor(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors  | null> => {
+      if (!control.value) {
+        return null;
+      }
+
+      return control.valueChanges.pipe(
+        debounceTime(500), // Debounce to prevent excessive API calls
+        distinctUntilChanged(), // Only emit when value changes
+        switchMap(value => this.#flavorExists(value)),
+        map(exists => (exists ? { uniqueNameError: true } : null)),
+        catchError(() => of(null)) // Handle errors gracefully
+      );
+    }
+  }
+
   #getRandomPrice(): number {
     return parseFloat((Math.random() * 5 + 2).toFixed(2)); // $2.00 - $7.00
   }
 
   #getRandomQuantity(): number {
     return Math.floor(Math.random() * 201); // 0 - 200
+  }
+
+  #flavorExists(flavor: string): Observable<boolean> {
+    return of (this.#flavors.includes(flavor));
   }
 }

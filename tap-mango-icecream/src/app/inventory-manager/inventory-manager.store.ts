@@ -1,6 +1,6 @@
 ﻿import { signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { Product } from '../models';
-import { Api } from '../api';
+import { ApiService } from '../api.service';
 import { computed, inject } from '@angular/core';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { exhaustMap, pipe, tap } from 'rxjs';
@@ -19,7 +19,7 @@ const initialState: InventoryManagerState = {
 export const InventoryManagerStore = signalStore(
   withState(initialState),
   withProps(() => ({
-    api: inject(Api)
+    api: inject(ApiService)
   })),
 
   withComputed(store => ({

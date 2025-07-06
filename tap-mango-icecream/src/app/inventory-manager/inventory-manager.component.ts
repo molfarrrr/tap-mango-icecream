@@ -10,10 +10,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { Spinner } from '../shared/spinner/spinner';
 import { MatToolbar } from '@angular/material/toolbar';
 import { ProductTableManager } from '../shared/product-table-manager/product-table-manager';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditDialogData, ProductEditDialog } from '../shared/product-edit-dialog/product-edit-dialog';
 
 @Component({
   selector: 'app-inventory-manager',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatIconModule, MatButtonModule, Spinner, MatToolbar, ProductTableManager],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    Spinner,
+    MatToolbar,
+    ProductTableManager,
+    MatDialogModule
+  ],
   templateUrl: './inventory-manager.component.html',
   styleUrl: './inventory-manager.component.scss',
   providers: [
@@ -23,7 +36,24 @@ import { ProductTableManager } from '../shared/product-table-manager/product-tab
 })
 export class InventoryManagerComponent {
   #store = inject(InventoryManagerStore);
+  #dialog = inject(MatDialog);
   loading: Signal<boolean> = this.#store.loading;
 
   readonly productFilter: ProductFilter = ProductFilter.all;
+
+  create() {
+    this.#dialog.open(ProductEditDialog, {
+      data: {
+        isEdit: false,
+        product: {}
+      } as EditDialogData
+    }).afterClosed()
+      .subscribe(x => {
+        if (!x) {
+          return;
+        }
+
+        this.#store.addProduct(x);
+      });
+  }
 }

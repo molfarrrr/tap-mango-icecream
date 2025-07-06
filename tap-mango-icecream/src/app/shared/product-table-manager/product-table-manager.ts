@@ -24,7 +24,7 @@ export class ProductTableManager {
   );
 
   editProduct(product: Product) {
-
+    this.#store.updateProduct(product);
   }
 
   deleteProduct(product: number) {

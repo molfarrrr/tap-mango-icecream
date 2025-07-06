@@ -8,6 +8,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 
 export interface ConfirmationDialogData {
   message: string;
@@ -15,7 +16,7 @@ export interface ConfirmationDialogData {
 
 @Component({
   selector: 'app-confirmation-dialog',
-  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatInputModule],
   templateUrl: './confirmation-dialog.html',
   styleUrl: './confirmation-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

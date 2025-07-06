@@ -2,7 +2,7 @@
   <app-spinner [loading]="loading()"></app-spinner>
 } @else {
   <mat-toolbar color="primary" class="d-flex align-items-center justify-content-between w-100">
-    <button mat-button mat-stroked-button  class="mat-elevation-z2">
+    <button mat-button mat-stroked-button class="mat-elevation-z2" (click)="create()">
       <mat-icon>add</mat-icon>
       Add Product
     </button>

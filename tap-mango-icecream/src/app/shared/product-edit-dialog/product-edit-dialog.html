@@ -1,1 +1,55 @@
-<p>product-edit-dialog works!</p>
+<h2 mat-dialog-title>{{data.isEdit ? 'Edit' : 'Create}} Product</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name"/>
+
+      <mat-error>
+        @if (form.controls.name.hasError('required')) {
+          THe Field is required
+        }
+
+        @if (form.controls.name.hasError('uniqueNameError')) {
+          The product with name "{{form.controls.name.value}}" already exists
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price"/>
+
+      <mat-error>
+        @if (form.controls.price.hasError('required')) {
+          THe Field is required
+        }
+
+        @if (form.controls.price.hasError('min')) {
+          The price cannot be less than 1
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="quantity"/>
+
+      <mat-error>
+        @if (form.controls.quantity.hasError('required')) {
+          THe Field is required
+        }
+
+        @if (form.controls.quantity.hasError('min')) {
+          The price cannot be less than 0
+        }
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>No</button>
+  <button matButton cdkFocusInitial (click)="done()">Ok</button>
+</mat-dialog-actions>

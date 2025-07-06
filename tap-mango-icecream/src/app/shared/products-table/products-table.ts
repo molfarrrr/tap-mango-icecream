@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Product } from '../../models';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialog, ConfirmationDialogData } from '../confirmation-dialog/confirmation-dialog';
+import { EditDialogData, ProductEditDialog } from '../product-edit-dialog/product-edit-dialog';
 
 @Component({
   selector: 'app-products-table',
@@ -70,6 +71,18 @@ export class ProductsTable implements AfterViewInit, OnChanges {
   }
 
   doEditProduct(row: Product) {
+    this.#dialog.open(ProductEditDialog, {
+      data: {
+        isEdit: true,
+        product: {}
+      } as EditDialogData
+    }).afterClosed()
+      .subscribe(x => {
+        if (!x) {
+          return;
+        }
 
+        this.editProduct.emit(x);
+      });
   }
 }
