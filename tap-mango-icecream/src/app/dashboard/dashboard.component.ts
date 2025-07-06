@@ -14,6 +14,7 @@ import { DashboardStore } from './dashboard.store';
 import { TopProduct } from '../models';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LowStockComponent } from './low-stock/low-stock.component';
+import { TopPerformersComponent } from './top-performers/top-performers.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,8 @@ import { LowStockComponent } from './low-stock/low-stock.component';
     FormsModule,
     MatFormFieldModule,
     Spinner,
-    LowStockComponent
+    LowStockComponent,
+    TopPerformersComponent
   ],
   providers: [
     DashboardStore
@@ -38,13 +40,5 @@ import { LowStockComponent } from './low-stock/low-stock.component';
 })
 export class DashboardComponent {
   #store = inject(DashboardStore);
-
-  selectedMonth: Signal<string> = this.#store.selectedMonth;
-  topPerformers: Signal<TopProduct[]> = this.#store.topPerformers;
   loading: Signal<boolean> = this.#store.loading;
-  months: Signal<string[]> = this.#store.months;
-
-  selectMonth(value: any) {
-    this.#store.setMonths(value);
-  }
 }

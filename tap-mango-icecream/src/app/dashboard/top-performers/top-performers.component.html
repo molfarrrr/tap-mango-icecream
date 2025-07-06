@@ -1,0 +1,17 @@
+<mat-form-field>
+  <mat-label>Month</mat-label>
+  <mat-select [value]="selectedMonth()" (selectionChange)="selectMonth($event.value)">
+    @for (month of months(); track month) {
+      <mat-option  [value]="month">{{month}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+<div>
+  <canvas
+    baseChart
+    [data]="topPerformers()"
+    [options]="pieChartOptions"
+    type="pie"
+    [legend]="true">
+  </canvas>
+</div>

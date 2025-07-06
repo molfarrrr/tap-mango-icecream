@@ -19,4 +19,3 @@ export enum ProductFilter {
   all = 1,
   low,
 }
-

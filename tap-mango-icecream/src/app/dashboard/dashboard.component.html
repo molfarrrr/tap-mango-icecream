@@ -1,5 +1,5 @@
-<div class="grid-container d-grid gap-5">
-  <mat-card class="dashboard-card d-flex flex-column gap-4">
+<div class="grid-container d-flex flex-wrap gap-5">
+  <mat-card class="dashboard-card-performers d-flex flex-column gap-4">
     <mat-card-header>
       <mat-card-title>
         Top Performers of the month
@@ -9,20 +9,12 @@
       @if (loading()) {
         <app-spinner [loading]="loading()"></app-spinner>
       } @else {
-        <mat-form-field>
-          <mat-label>Month</mat-label>
-          <mat-select [value]="selectedMonth()" (selectionChange)="selectMonth($event.value)">
-            @for (month of months(); track month) {
-              <mat-option  [value]="month">{{month}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-        <div>Card Content Here</div>
+        <app-top-performers></app-top-performers>
       }
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="dashboard-card d-flex flex-column gap-4" >
+  <mat-card class="dashboard-card-low-stock d-flex flex-column gap-4" >
     <mat-card-header>
       <mat-card-title>
         Low In Stock
