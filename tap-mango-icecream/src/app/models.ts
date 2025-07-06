@@ -17,6 +17,6 @@ export interface TopProduct {
 
 export enum ProductFilter {
   all = 1,
-  top,
+  low,
 }
 

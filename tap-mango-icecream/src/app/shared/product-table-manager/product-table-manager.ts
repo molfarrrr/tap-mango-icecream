@@ -18,7 +18,7 @@ export class ProductTableManager {
   productFilter: InputSignal<ProductFilter> = input.required();
 
   data = computed(() =>
-    this.productFilter()
+    this.productFilter() === ProductFilter.all
       ? this.#store.products()
       : this.#store.lowStockProducts()
   );

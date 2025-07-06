@@ -1,0 +1,5 @@
+@if (loading()) {
+  <app-spinner [loading]="loading()"></app-spinner>
+} @else {
+  <app-product-table-manager [productFilter]="productFilter"></app-product-table-manager>
+}

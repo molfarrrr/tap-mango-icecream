@@ -49,7 +49,6 @@ export class ProductEditDialog {
     if (this.form.invalid) {
       return;
     }
-    debugger;
     this.dialogRef.close({
       ...this.data.product,
       ...this.form.value

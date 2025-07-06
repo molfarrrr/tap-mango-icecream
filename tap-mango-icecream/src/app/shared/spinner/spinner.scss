@@ -1,4 +1,11 @@
+:host {
+  height: 100%;
+  display: block;
+  position: relative;
+}
+
 .spinner {
   background-color: rgba(white, 0.5);
   position: absolute;
 }
+

@@ -129,12 +129,20 @@ export class ApiService {
     })
   }
 
+  getMonths(): Observable<string[]> {
+    return of([
+      'April',
+      'May',
+      'June',
+      'July',
+    ]);
+  }
+
   getProducts(): Observable<Product[]> {
     return of(JSON.parse(JSON.stringify(this.#data))).pipe(delay(500));
   }
 
   updateProduct(product: Product): Observable<boolean> {
-
     if (!this.#dataMap[product.id]) {
       return of(false).pipe(delay(500));
     }
@@ -161,7 +169,7 @@ export class ApiService {
       return of(false).pipe(delay(500));
     }
     this.#largestID++;
-    debugger;
+
     const product: Product = {
       id: this.#largestID,
       name: newProduct.name,
@@ -176,7 +184,7 @@ export class ApiService {
     return of(false).pipe(delay(500));
   }
 
-  getTopProductForMonth(month: number): Observable<TopProduct[]> {
+  getTopProductForMonth(month: string): Observable<TopProduct[]> {
     return of(this.#topProductsByMonth[month]).pipe(delay(500));
   }
 
