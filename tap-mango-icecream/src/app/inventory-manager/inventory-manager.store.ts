@@ -26,7 +26,7 @@ export const InventoryManagerStore = signalStore(
     lowStockProducts: computed(() =>
       store.products()
         .filter(x => x.quantity < 50)
-        .sort()
+        .sort((a, b) => a.quantity - b.quantity)
     ),
   })),
 
