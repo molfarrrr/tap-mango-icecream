@@ -43,6 +43,7 @@ export class InventoryManagerComponent {
 
   create() {
     this.#dialog.open(ProductEditDialog, {
+      width: '500px',
       data: {
         isEdit: false,
         product: {}

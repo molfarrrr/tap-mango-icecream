@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product, TopProduct } from './models';
-import { catchError, debounceTime, delay, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
+import { catchError, debounceTime, delay, distinctUntilChanged, Observable, of, switchMap, take, tap } from 'rxjs';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
@@ -125,7 +125,7 @@ export class ApiService {
       };
 
       this.#data.push(product);
-      this.#dataMap[index] = product;
+      this.#dataMap[product.id] = product;
     })
   }
 
@@ -134,12 +134,13 @@ export class ApiService {
   }
 
   updateProduct(product: Product): Observable<boolean> {
+
     if (!this.#dataMap[product.id]) {
       return of(false).pipe(delay(500));
     }
 
     this.#dataMap[product.id] = {...product};
-
+    this.#data = Object.values(this.#dataMap);
     return of(true).pipe(delay(500))
   }
 
@@ -160,7 +161,7 @@ export class ApiService {
       return of(false).pipe(delay(500));
     }
     this.#largestID++;
-
+    debugger;
     const product: Product = {
       id: this.#largestID,
       name: newProduct.name,
@@ -184,13 +185,13 @@ export class ApiService {
       if (!control.value) {
         return null;
       }
-
       return control.valueChanges.pipe(
         debounceTime(500), // Debounce to prevent excessive API calls
         distinctUntilChanged(), // Only emit when value changes
         switchMap(value => this.#flavorExists(value)),
+        take(1),
         map(exists => (exists ? { uniqueNameError: true } : null)),
-        catchError(() => of(null)) // Handle errors gracefully
+        catchError(() => of(null)), // Handle errors gracefully
       );
     }
   }
@@ -204,6 +205,6 @@ export class ApiService {
   }
 
   #flavorExists(flavor: string): Observable<boolean> {
-    return of (this.#flavors.includes(flavor));
+    return of(this.#flavors.includes(flavor));
   }
 }

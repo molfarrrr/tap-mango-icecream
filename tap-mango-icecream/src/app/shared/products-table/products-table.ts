@@ -72,9 +72,10 @@ export class ProductsTable implements AfterViewInit, OnChanges {
 
   doEditProduct(row: Product) {
     this.#dialog.open(ProductEditDialog, {
+      width: '500px',
       data: {
         isEdit: true,
-        product: {}
+        product: row
       } as EditDialogData
     }).afterClosed()
       .subscribe(x => {
