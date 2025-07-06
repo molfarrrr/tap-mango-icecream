@@ -1,8 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { AsyncPipe } from '@angular/common';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +7,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { Spinner } from '../shared/spinner/spinner';
 import { DashboardStore } from './dashboard.store';
-import { TopProduct } from '../models';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LowStockComponent } from './low-stock/low-stock.component';
 import { TopPerformersComponent } from './top-performers/top-performers.component';

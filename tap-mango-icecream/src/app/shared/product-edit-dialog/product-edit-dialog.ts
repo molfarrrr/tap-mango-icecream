@@ -38,9 +38,19 @@ export class ProductEditDialog {
   readonly dialogRef = inject(MatDialogRef<ProductEditDialog>);
 
   form: FormGroup<EdictProductForm> = this.#fb.group<EdictProductForm>({
-    name: this.#fb.control({value: this.data.product.name, disabled: this.data.isEdit}, [Validators.required], [this.#api.validateFlavor()]),
-    price: this.#fb.control(this.data.product.price || 0, [Validators.required, Validators.min(1)]),
-    quantity: this.#fb.control(this.data.product.quantity || 0, [Validators.required, Validators.min(0)]),
+    name: this.#fb.control(
+      {value: this.data.product.name, disabled: this.data.isEdit},
+      [Validators.required],
+      [this.#api.validateFlavor()]
+    ),
+    price: this.#fb.control(
+      this.data.product.price || 0,
+      [Validators.required, Validators.min(1)]
+    ),
+    quantity: this.#fb.control(
+      this.data.product.quantity || 0,
+      [Validators.required, Validators.min(0)]
+    ),
   });
 
   done() {

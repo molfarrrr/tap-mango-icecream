@@ -1,16 +1,18 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy,
-  Component, inject,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
   input,
   InputSignal,
-  OnChanges, output,
-  Signal,
-  SimpleChanges, ViewChild,
-  viewChild
+  OnChanges,
+  output,
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
-import { MatSortModule, MatSort } from '@angular/material/sort';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { ActivatedRoute, Route, Router, RouterLink, RouterLinkActive, RouterOutlet, Routes } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
+import { ActivatedRoute, Route, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, shareReplay } from 'rxjs';
+import { shareReplay } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { routes } from '../app.routes';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,7 +41,10 @@ export class LayoutComponent{
   readonly #router: Router = inject(Router);
   readonly #route: ActivatedRoute = inject(ActivatedRoute);
 
-  routes: Route[] = routes[1]?.children?.filter(r => r.path && r.path !== '**') as Route[];
+  routes: Route[] = routes[1]?.children?.filter(
+    r => r.path && r.path !== '**'
+  ) as Route[];
+
   eventSignal = toSignal(this.#router.events);
 
   isHandset: Signal<boolean> = toSignal(this.#breakpointObserver.observe(Breakpoints.Handset)
@@ -52,7 +55,9 @@ export class LayoutComponent{
 
   toolbarData = computed<ToolbarData>(() => {
     this.eventSignal();
-    const { data } = this.routes.find(r => r.path === this.#route.snapshot.firstChild?.routeConfig?.path) as any;
+    const { data } = this.routes.find(r =>
+      r.path === this.#route.snapshot.firstChild?.routeConfig?.path
+    ) as any;
 
     return {
       icon: data?.icon,
