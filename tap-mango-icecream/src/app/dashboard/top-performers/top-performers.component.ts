@@ -27,14 +27,12 @@ import { ChartData, ChartOptions, ChartType } from 'chart.js';
 })
 export class TopPerformersComponent {
   #store = inject(DashboardStore);
-  //
   selectedMonth: Signal<string> = this.#store.selectedMonth;
   topPerformers: Signal<ChartData<'pie', number[], string | string[]>> = this.#store.topPerformersChart;
   months: Signal<string[]> = this.#store.months;
 
   readonly pieChartOptions: ChartOptions = {
     responsive: false,
-
   };
 
   selectMonth(value: any) {

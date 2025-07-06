@@ -52,12 +52,11 @@ export class ProductsTable implements AfterViewInit, OnChanges {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   doDeleteProduct(row: Product) {
     this.#dialog.open(ConfirmationDialog, {
-      width: '250px',
+      width: '500px',
       data: {
         message: `Would you like to delete "${row.name}" product?`
       } as ConfirmationDialogData
