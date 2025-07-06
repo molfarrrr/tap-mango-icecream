@@ -11,6 +11,7 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { Product } from '../../models';
+import { MatInput } from '@angular/material/input';
 
 export interface EditDialogData {
   product: Product;
@@ -25,7 +26,7 @@ interface EdictProductForm {
 
 @Component({
   selector: 'app-product-edit-dialog',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle, MatInput],
   templateUrl: './product-edit-dialog.html',
   styleUrl: './product-edit-dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,16 +38,18 @@ export class ProductEditDialog {
   readonly dialogRef = inject(MatDialogRef<ProductEditDialog>);
 
   form: FormGroup<EdictProductForm> = this.#fb.group<EdictProductForm>({
-    name: this.#fb.control({value: '', disabled: this.data.isEdit}, [Validators.required], [this.#api.validateFlavor()]),
-    price: this.#fb.control(null, [Validators.required, Validators.min(1)]),
-    quantity: this.#fb.control(0, [Validators.required, Validators.min(0)]),
+    name: this.#fb.control({value: this.data.product.name, disabled: this.data.isEdit}, [Validators.required], [this.#api.validateFlavor()]),
+    price: this.#fb.control(this.data.product.price || 0, [Validators.required, Validators.min(1)]),
+    quantity: this.#fb.control(this.data.product.quantity || 0, [Validators.required, Validators.min(0)]),
   });
 
   done() {
+    this.form.updateValueAndValidity({ emitEvent: true });
+    this.form.markAllAsTouched();
     if (this.form.invalid) {
       return;
     }
-
+    debugger;
     this.dialogRef.close({
       ...this.data.product,
       ...this.form.value
